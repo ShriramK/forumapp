@@ -164,6 +164,7 @@ def increment_post_counter(request):
 	profile.posts += 1
 	profile.save()
 
+# TODO: Implement Full-Text Search
 def search(request):
 	results = None
 	if request.method == "POST":
