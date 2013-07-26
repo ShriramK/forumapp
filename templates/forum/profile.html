@@ -1,0 +1,32 @@
+{% extends "forum/fbase.html" %}
+
+{% block content %}
+	<style type="text/css">
+		.main { margin-left: 25px; margin-top: 30px; }
+		.time { font-size: 0.8em; margin-top: 2px; }
+		.body { font-size: 1.1em; margin-top: 2px; }
+		.commentlink { text-align: right; }
+		.step-links a { font-size: 0.89em; }
+		.title {
+			font-size: 1.4em; margin-top: 20px; border-bottom: 1px solid #ccc;
+			padding-left: 4px; margin-left: 5px;
+		}
+		.messages { margin-left: 20px; }
+		.pagination { margin-top: 20px; margin-left: -20px; }
+	</style>
+	<div class="main">
+		<div id="title">Edit Profile</div><br />
+
+		<p>
+		<form enctype="multipart/form-data" action="{% url forum.views.profile user.pk %}" method="POST">{% csrf_token %}
+			{% if img %} 
+				<p><img border="0" alt="Profile Pic" src="{{ img }}" /></p> 
+			{% endif %}
+
+			Profile Pic: {{ pf.avatar }}
+			<input type="submit" value="Submit" id="submit" />
+		</form>
+		</p>
+	</div>
+
+{% endblock %}

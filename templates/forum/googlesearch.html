@@ -1,0 +1,30 @@
+{% extends "forum/fbase.html" %}
+
+{% block content %}
+	<style type="text/css">
+		.main { margin-left: 25px; margin-top: 30px; }
+		.time { font-size: 0.8em; margin-top: 2px; }
+		.body { font-size: 1.1em; margin-top: 2px; }
+		.commentlink { text-align: right; }
+		.step-links a { font-size: 0.89em; }
+		.title {
+			font-size: 1.4em; margin-top: 20px; border-bottom: 1px solid #ccc;
+			padding-left: 4px; margin-left: 5px;
+		}
+		.messages { margin-left: 20px; }
+		.pagination { margin-top: 20px; margin-left: -20px; }
+	</style>
+	<div class="main">
+
+		<!-- Submit form -->
+		<div class="form">
+			<form action="http://www.google.com/search" method="get">{% csrf_token %}
+				<input type="text" name="q" size="31" maxlength="255" value="" />
+				<input type="submit" value="Google Search" />
+				<input type="radio" name="sitesearch" value="" /> The Web
+				<input type="radio" name="sitesearch" value="<domain>" checked /> My Site<br />
+			</form>
+		</div>
+	</div>
+
+{% endblock %}

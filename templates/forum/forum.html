@@ -1,0 +1,68 @@
+{% extends "forum/fbase.html" %}
+
+{% block content %}
+	<style type="text/css">
+		.main { margin-left: 25px; margin-top: 30px; }
+		.time { font-size: 0.8em; margin-top: 2px; }
+		.body { font-size: 1.1em; margin-top: 2px; }
+		.commentlink { text-align: right; }
+		.step-links a { font-size: 0.89em; }
+		.title {
+			font-size: 1.4em; margin-top: 20px; border-bottom: 1px solid #ccc;
+			padding-left: 4px; margin-left: 5px;
+		}
+		.messages { margin-left: 20px; }
+		.pagination { margin-top: 20px; margin-left: -20px; }
+	</style>
+	<div class="main">
+
+		<!-- Threads -->
+		<a id="new topic" class="button" href="{% url forum.views.post 'new_thread' pk %}">Start New Topic</a>
+		<br />
+		<br />
+
+		<div id="list">
+		<table border="0" cellpadding="4" width="100%">
+			<tr>
+				<td>Topics</td>
+				<td>Replies</td>
+				<td>Last post</td>
+				<td></td>
+			</tr>
+
+			{% for thread in threads.object_list %}
+			<tr>
+				<td {% if forloop.last %}class="last"{% endif %}>
+				<div class="title"><a href="{% url forum.views.thread thread.pk %}">{{ thread.title }}</a></div></td>
+				<td {% if forloop.last %}class="last"{% endif %}>{{ thread.num_replies }}</td>
+				<td {% if forloop.last %}class="last"{% endif %}>{{ thread.last_post.short|linebreaksbr }}</td>
+				<td {% if forloop.last %}class="last"{% endif %}>
+					<a class="button" href="{% url forum.views.thread thread.pk %}">VIEW</a></td>
+			</tr>
+
+			{% endfor %}
+		</table>
+		</div>
+
+		<!-- Next/Prev page links -->
+		{% if threads.object_list and threads.paginator.num_pages > 1 %}
+		<div class="pagination">
+			<span class="step-links">
+				{% if threads.has_previous %}
+					<a href="?page={{ threads.previous_page_number }}">previous &lt;&lt; </a>
+				{% endif %}
+
+				<span class="current">
+					&nbsp;Page {{ threads.number }} of {{ threads.paginator.num_pages }}
+				</span>
+
+				{% if threads.has_next %}
+					<a href="?page={{ threads.next_page_number }}"> &gt;&gt; next</a>
+				{% endif %}
+			</span>
+		</div>
+		{% endif %}
+
+	</div>
+
+{% endblock %}

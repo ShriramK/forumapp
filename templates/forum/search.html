@@ -1,0 +1,52 @@
+{% extends "forum/fbase.html" %}
+
+{% block content %}
+	<style type="text/css">
+		.main { margin-left: 25px; margin-top: 30px; }
+		.body { font-style: italic; font-size: 1.5em; margin: 15px;}
+		.title {
+			font-size: 1.4em; margin-top: 20px; border-bottom: 1px solid #ccc;
+			padding-left: 4px; margin-left: 5px;
+		}
+	</style>
+	<div class="main">
+
+		<!-- Submit form -->
+		<div class="form">
+			<form action="/search/" method="post">{% csrf_token %}
+				<input type="text" name="myquery" size="31" maxlength="255" value="" />
+				<input type="submit" value="Search" />
+			</form>
+		</div>
+
+		<!-- Results -->
+		<div class="title">
+			Results
+		</div>
+
+		{% for each in results %}
+			<table>
+				<tr>
+					<td>
+						<div class="title"> 
+							{{ each.title }} 
+						</div>
+						<div style="margin-left: 10px;">
+						by {{ each.creator}}, {{ each.created }} from Thread - {{ each.thread }} <br />
+						</div>
+					</td>
+					<tr>
+						<td>
+							<div class="body">
+								{{ each.body }}
+							</div>
+						</td>
+					</tr>
+				</tr>
+			</table>
+
+		{% endfor %}
+
+	</div>
+
+{% endblock %}
